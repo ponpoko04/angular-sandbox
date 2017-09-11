@@ -1,0 +1,9 @@
+<div class="container">
+  <h3>{{this.message.title}}</h3>
+  <small>{{this.message.description}}</small>
+  <ng-container *ngFor="let link of message.links">
+    <div>
+      <a [href]="link.url" target="_brank">{{link.title}}</a>
+    </div>
+  </ng-container>
+</div>

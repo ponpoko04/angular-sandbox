@@ -1,0 +1,60 @@
+<ng-template [ngIf]="this.isSubmit">
+  <app-message [message]="this.message"></app-message>
+</ng-template>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <form [formGroup]="this.form">
+      <div class="form-group"
+           [ngClass]="
+            this.form.controls['text1'].errors
+            && this.form.controls['text1'].dirty
+            && this.form.controls['text1'].touched
+            && (
+              !this.form.controls['text1'].errors.required
+              || this.isSubmit
+            )
+            ? 'has-error'
+            : ''
+      ">
+        <label for="text1">text1:</label>
+        <input id="text1" type="text" class="form-control" formControlName="text1"
+          (focus)="this.onFocus()"
+          (keydown)="this.onChange()"
+          (blur)="this.onLostFocus()"
+        >
+        <ng-template [ngIf]="
+          this.form.controls['text1'].invalid
+          && this.form.controls['text1'].dirty
+          && this.form.controls['text1'].touched
+          && this.form.controls['text1'].errors.required
+          && this.isSubmit
+        ">
+          <span class="text-danger">必須入力です</span>
+        </ng-template>
+        <ng-template [ngIf]="
+          this.form.controls['text1'].invalid
+          && this.form.controls['text1'].dirty
+          && this.form.controls['text1'].touched
+          && this.form.controls['text1'].errors.maxlength
+        ">
+          <span class="text-danger">{{this.form.controls['text1'].errors.maxlength.requiredLength}}文字以内で入力してください</span>
+        </ng-template>
+      </div>
+      <hr>
+      <div>
+        this.form.controls['text1'].errors:
+        {{this.form.controls['text1'].errors | json}}
+      </div>
+      <div>
+        this.isSubmit:
+        {{this.isSubmit}}
+      </div>
+      <div>
+        this.form.controls['text1'].dirty:
+        {{this.form.controls['text1'].dirty}}
+      </div>
+      <button type="button" class="btn btn-default" (click)="onSubmit()">Submit</button>
+    </form>
+  </div>
+</div>
+
